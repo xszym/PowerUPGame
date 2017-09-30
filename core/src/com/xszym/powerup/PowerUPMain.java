@@ -1,12 +1,11 @@
 package com.xszym.powerup;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.xszym.powerup.screens.PlayScreen;
 
-public class PowerUPMain extends ApplicationAdapter {
+public class PowerUPMain extends Game {
 
 
 	public static final int WIDTH = 540;
@@ -14,27 +13,39 @@ public class PowerUPMain extends ApplicationAdapter {
 	public static final String TITLE = "PowerUP FRC 2018";
 	public static final boolean setDebug = false;
 
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+	private boolean paused;
+
+	public static Image bg;
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void create () {
+
+		initBG();
+
+		this.setScreen(new PlayScreen(this));
+
 	}
 	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+
+	public void initBG() {
+
+		bg = new Image(new Texture("bg.jpg"));
+		PowerUPMain.bg.setX(0);
+		PowerUPMain.bg.setY(0);
+		PowerUPMain.bg.setHeight(PowerUPMain.HEIGHT);
+		PowerUPMain.bg.setWidth(PowerUPMain.WIDTH);
+
+	}
+
+	//
+	// getters and setters
+	//
+
+	public boolean isPaused() {
+		return paused;
+	}
+
+	public void setPaused(boolean paused) {
+		this.paused = paused;
 	}
 }
