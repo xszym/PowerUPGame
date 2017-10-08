@@ -1,9 +1,12 @@
 package com.xszym.powerup.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Timer;
+import com.sun.xml.internal.txw2.output.IndentingXMLFilter;
 import com.xszym.powerup.PowerUPMain;
 import com.xszym.powerup.entitlies.Robot;
 
@@ -16,6 +19,7 @@ public class PlayScreen extends AbstractScreen {
 
     private Image bgGame;
     private Array<Robot> robots;
+    private int countOfRobots;
 
     public PlayScreen(PowerUPMain game) {
         super(game);
@@ -26,6 +30,20 @@ public class PlayScreen extends AbstractScreen {
         initBG();
         initRobots();
         createRobots();
+
+        countOfRobots = 3;
+
+        Timer.schedule(new Timer.Task(){
+                           @Override
+                           public void run() {
+                               countOfRobots++;
+                           }
+                       }
+                , 1        //    (delay)
+                , new Random().nextInt(3) + 3     //    (seconds)
+        );
+
+
     }
 
 
@@ -49,6 +67,16 @@ public class PlayScreen extends AbstractScreen {
 
         checkRobotTouched(delta);
 
+        int robotsSize = robots.size;
+
+        if(robotsSize < countOfRobots){
+           robots.add(new Robot((Robot.HEIGHT)));
+            stage.addActor(robots.get(robots.size - 1));
+            robots.get(robotsSize).fly(new Random().nextInt(500), 30);
+        }
+
+
+        Gdx.app.log("count of Robots", "Count of robots: " + robotsSize );
         camera.update();
     }
 
@@ -122,6 +150,8 @@ public class PlayScreen extends AbstractScreen {
             robot.addListener(new InputListener() {
                 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                     //Gdx.app.log("Example", "touch started at (" + x + ", " + y + ")");
+                    boolean b = robots.removeValue(robot, false);
+                    //Gdx.app.log("wartosc", b);
                     robot.remove();
                     return false;
                 }

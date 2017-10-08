@@ -81,14 +81,14 @@ public class Robot extends Image
         boundsPlayer.setPosition(position.x, position.y);
 
         if(maxLeft){
-            this.fly(+50, 40);
+            this.fly(- (velocity.x - (velocity.x / 10)), 40);
         }
         if (maxRight){
-            this.fly(-50, 40);
+            this.fly(-( velocity.x - (velocity.x / 10)), 40);
         }
     }
 
-    public void fly(int x, int y) {
+    public void fly(float x, float y) {
         velocity.x = x;
         velocity.y = y;
     }

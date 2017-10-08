@@ -9,13 +9,11 @@ import java.util.Random;
 
 
 public class Platform extends Image {
-    public final static int TUBE_WIDHT = 200;
-    public final static int TUBE_HEIGHT = 142;
+    public final static int PLATFORM_WIDHT = 200;
+    public final static int PLATFORM_HEIGHT = 142;
 
 
-    private static final int FLUCTUATION = PowerUPMain.WIDTH - TUBE_WIDHT;
-    private static final int GEARS_GAP = 100;
-    private static final int LOWEST_OPENING = 00;
+    private static final int FLUCTUATION = PowerUPMain.WIDTH - PLATFORM_WIDHT;
 
     private Random rand;
 
@@ -24,8 +22,8 @@ public class Platform extends Image {
     public Platform(float y) {
         super(new Texture("badlogic.jpg"));
 
-        this.setOrigin(TUBE_WIDHT / 2, TUBE_HEIGHT / 2);
-        this.setSize(TUBE_WIDHT, TUBE_HEIGHT);
+        this.setOrigin(PLATFORM_WIDHT / 2, PLATFORM_HEIGHT / 2);
+        this.setSize(PLATFORM_WIDHT, PLATFORM_HEIGHT);
         rand = new Random();
 
         this.setPosition(rand.nextInt(FLUCTUATION), y);
