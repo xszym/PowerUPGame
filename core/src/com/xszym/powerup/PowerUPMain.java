@@ -8,8 +8,8 @@ import com.xszym.powerup.screens.PlayScreen;
 public class PowerUPMain extends Game {
 
 
-	public static final int WIDTH = 540;
-	public static final int HEIGHT = 960;
+	public static final int WIDTH = 270;
+	public static final int HEIGHT = 480;
 	public static final String TITLE = "PowerUP FRC 2018";
 	public static final boolean setDebug = false;
 
