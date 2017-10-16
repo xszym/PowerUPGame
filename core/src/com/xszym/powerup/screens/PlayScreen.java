@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Timer;
-import com.sun.xml.internal.txw2.output.IndentingXMLFilter;
 import com.xszym.powerup.PowerUPMain;
+import com.xszym.powerup.entitlies.Platform;
 import com.xszym.powerup.entitlies.Robot;
 
 import com.badlogic.gdx.utils.Array;
@@ -19,6 +19,8 @@ public class PlayScreen extends AbstractScreen {
 
     private Image bgGame;
     private Array<Robot> robots;
+    private Array<Platform> platforms;
+
     private int countOfRobots;
 
     public PlayScreen(PowerUPMain game) {
@@ -31,6 +33,8 @@ public class PlayScreen extends AbstractScreen {
         initRobots();
         createRobots();
 
+        initPlatforms();
+
         countOfRobots = 3;
 
         Timer.schedule(new Timer.Task(){
@@ -40,10 +44,19 @@ public class PlayScreen extends AbstractScreen {
                            }
                        }
                 , 1        //    (delay)
-                , new Random().nextInt(3) + 3     //    (seconds)
+                , new Random().nextInt(2) + 1     //    (seconds)
         );
 
 
+    }
+
+    private void initPlatforms() {
+        platforms = new Array<Platform>();
+
+        for (int i = 1; i <= 5; i++) {
+            platforms.add(new Platform(i * (Platform.PLATFORM_HEIGHT) + 50 ));
+            stage.addActor(platforms.get(i - 1));
+        }
     }
 
 
@@ -153,9 +166,12 @@ public class PlayScreen extends AbstractScreen {
                     boolean b = robots.removeValue(robot, false);
                     //Gdx.app.log("wartosc", b);
                     robot.remove();
+                    countOfRobots--;
                     return false;
                 }
             });
+
+
 
             robot.updateRobot(delta);
 

@@ -9,8 +9,8 @@ import java.util.Random;
 
 
 public class Platform extends Image {
-    public final static int PLATFORM_WIDHT = 200;
-    public final static int PLATFORM_HEIGHT = 142;
+    public final static int PLATFORM_WIDHT = 60;
+    public final static int PLATFORM_HEIGHT = 20;
 
 
     private static final int FLUCTUATION = PowerUPMain.WIDTH - PLATFORM_WIDHT;
